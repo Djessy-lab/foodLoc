@@ -3,7 +3,7 @@
     <section id="get-email" class="flex flex-col items-center">
       <div class="text-center mb-10">
         <h3 class="text-3xl">S'inscrire pour l'accès anticipé</h3>
-        <p class="mt-2">Inscrivez-vous aujourd'hui et bénéficiez de 40% de réduction</p>
+        <p class="mt-2">Inscrivez-vous aujourd'hui et bénéficiez de 40% de réduction !!</p>
       </div>
       <div class="w-full flex justify-center">
         <input v-model="email" type="email" placeholder="votre.meilleur@email.com"
