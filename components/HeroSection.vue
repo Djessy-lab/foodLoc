@@ -1,7 +1,7 @@
 <template>
-  <div class="">
+  <div class="bg-gradient-to-b from-blue-200 to-blue-100">
     <header class="flex items-center justify-between p-4">
-      <div class="text-xl font-bold"><a href="/">FoodLoc</a></div>
+      <div class="text-xl font-bold font-mono"><a href="/">FoodLoc</a></div>
       <nav>
         <ul class="flex space-x-4">
           <li><a href="/products" class="text-blue-600">Produits</a></li>
@@ -15,11 +15,11 @@
       <p class="mt-4 text-lg text-gray-600">Découvrez les produits locaux directement auprès des producteurs de votre
         région.</p>
       <div class="mt-6">
-        <button @click="handleClick" class="max-w-24 min-w-24 bg-blue-600 text-white px-4 py-2 rounded-lg shadow hover:bg-blue-700">Découvrir</button>
-        <button class="max-w-24 min-w-24 bg-white ml-2 px-4 py-2 rounded-lg shadow hover:bg-slate-100"><a href="#get-email">S'inscrire</a></button>
+        <!-- <button @click="handleClick" class="max-w-24 min-w-24 bg-blue-600 text-white px-4 py-2 rounded-lg shadow hover:bg-blue-700">Découvrir</button> -->
+        <button class="max-w-32 min-w-32 bg-blue-600 text-white px-4 py-2 rounded-lg shadow hover:bg-blue-700"><a href="#get-email">S'inscrire</a></button>
       </div>
       <div class="mt-8">
-        <img src="/img/vegetables.avif" alt="Producteurs et Consommateurs" class="mx-auto w-[40%] rounded-lg shadow-lg" />
+        <img src="/img/vegetables.avif" alt="Producteurs et Consommateurs" class="mx-auto sm:w-[80%] lg:w-[40%] rounded-lg shadow-lg" />
       </div>
     </section>
   </div>
