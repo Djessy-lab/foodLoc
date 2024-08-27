@@ -6,6 +6,9 @@
     <Testimonials />
   </div>
   <div>
+    <HowItsWorks />
+  </div>
+  <div>
     <GetEmail />
   </div>
 </template>

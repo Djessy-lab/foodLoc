@@ -1,4 +1,11 @@
 import nodemailer from 'nodemailer';
+import db from '../database.js';
+import dayjs from 'dayjs';
+import utc from 'dayjs/plugin/utc';
+import timezone from 'dayjs/plugin/timezone';
+
+dayjs.extend(utc);
+dayjs.extend(timezone);
 
 export default defineEventHandler(async (event) => {
   if (event.req.method === 'POST') {
@@ -6,11 +13,26 @@ export default defineEventHandler(async (event) => {
     const { email } = body;
 
     if (!email) {
-      return sendError(event, createError({ statusCode: 400, statusMessage: 'L\'adresse email est requise.' }));
+      return sendError(event, createError({ statusCode: 400, statusMessage: "L'adresse email est requise." }));
+    }
+
+    const emailExists = db.prepare('SELECT COUNT(*) AS count FROM emails WHERE email = ?').get(email).count > 0;
+
+    if (emailExists) {
+      return { message: "Vous êtes déjà inscrit avec cet email." };
+    }
+
+    const localTimestamp = dayjs().tz('Europe/Paris').format('YYYY-MM-DD HH:mm:ss');
+
+    try {
+      const stmt = db.prepare('INSERT INTO emails (email, created_at) VALUES (?, ?)');
+      stmt.run(email, localTimestamp);
+    } catch (error) {
+      return sendError(event, createError({ statusCode: 500, statusMessage: "Erreur lors de l'enregistrement de l'email." }));
     }
 
     const transporter = nodemailer.createTransport({
-      service: 'gmail', 
+      service: 'gmail',
       auth: {
         user: process.env.EMAIL_USER,
         pass: process.env.EMAIL_PASS,
@@ -30,8 +52,8 @@ export default defineEventHandler(async (event) => {
 
       return { message: 'Email envoyé avec succès!' };
     } catch (error) {
-      console.error('Erreur lors de l\'envoi de l\'email:', error);
-      return sendError(event, createError({ statusCode: 500, statusMessage: 'Erreur lors de l\'envoi de l\'email.' }));
+      console.error("Erreur lors de l'envoi de l'email:", error);
+      return sendError(event, createError({ statusCode: 500, statusMessage: "Erreur lors de l'envoi de l'email." }));
     }
   } else {
     return sendError(event, createError({ statusCode: 405, statusMessage: 'Méthode non autorisée' }));

@@ -3,7 +3,7 @@
     <section id="get-email" class="flex flex-col items-center">
       <div class="text-center mb-10">
         <h3 class="text-3xl">S'inscrire pour l'accès anticipé</h3>
-        <p class="mt-2">Inscrivez-vous aujourd'hui et bénéficiez de 40% de réduction !!</p>
+        <p class="mt-2">Inscrivez-vous aujourd'hui et bénéficiez de 40% de réduction</p>
       </div>
       <div class="w-full flex justify-center">
         <input v-model="email" type="email" placeholder="votre.meilleur@email.com"
@@ -16,24 +16,33 @@
   </div>
 </template>
 
-<script setup>
-import { ref } from 'vue';
+<script>
+export default {
+  name: 'GetEmail',
+  data() {
+    return {
+      email: '',
+    };
+  },
+  methods: {
+    async subscribe() {
+      try {
+        const response = await $fetch('/api/subscribe', {
+          method: 'POST',
+          body: { email: this.email },
+        });
 
-const email = ref('');
-
-const subscribe = async () => {
-  try {
-    const response = await $fetch('/api/subscribe', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ email: email.value }),
-    });
-    alert('Merci pour votre inscription !');
-  } catch (error) {
-    console.error('Erreur lors de l\'inscription :', error);
-    alert('Une erreur est survenue lors de l\'inscription.');
-  }
-}
+        if (response.message === "Vous êtes déjà inscrit avec cet email.") {
+          alert("Vous êtes déjà inscrit avec cet email.");
+        } else {
+          alert(response.message);
+          this.email = '';
+        }
+      } catch (error) {
+        console.error("Erreur lors de l'inscription :", error);
+        alert("Une erreur s'est produite lors de l'inscription.");
+      }
+    },
+  },
+};
 </script>
