@@ -4,7 +4,7 @@
       <div class="text-xl font-bold font-mono"><a href="/">FoodLoc</a></div>
       <nav>
         <ul class="flex space-x-4">
-          <li><a href="/products" class="text-blue-600">Produits</a></li>
+          <li><a href="/products" class="text-blue-600">Notre annuaire</a></li>
           <li><a href="#testimonials" class="text-blue-600">Avis</a></li>
           <li><a href="#get-email" class="text-blue-600">S'inscrire</a></li>
         </ul>
