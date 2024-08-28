@@ -24,6 +24,7 @@
 
 <script>
 import testimonials from '@/data/testimonials.js'
+
 export default {
   name: 'Testimonials',
   data() {
