@@ -12,27 +12,27 @@
       </div>
     </div>
     <div class="bg-gradient-to-b from-blue-100 to-blue-0">
-      <div v-if="!selectedRegion && !selectedDepartment && !selectedCity" class="grid grid-cols-2 gap-5 p-8">
+      <div v-if="!selectedRegion && !selectedDepartment && !selectedCity" class="grid lg:grid-cols-2 max-lg:grid-cols-1 gap-5 p-8">
         <div class="col bg-gray-100 shadow-lg rounded-lg p-4 cursor-pointer"
           v-for="(departments, region) in groupedProducers" :key="region" @click="selectRegion(region)">
           <h1 class="font-extrabold text-xl">{{ region }}</h1>
         </div>
       </div>
-      <div v-if="selectedRegion && !selectedDepartment && !selectedCity" class="grid grid-cols-4 gap-5 p-8">
+      <div v-if="selectedRegion && !selectedDepartment && !selectedCity" class="grid lg:grid-cols-4 max-lg:grid-cols-1 gap-5 p-8">
         <div class="col bg-gray-100 shadow-lg rounded-lg p-4 cursor-pointer"
           v-for="(cities, department) in groupedProducers[selectedRegion]" :key="department"
           @click="selectDepartment(department)">
           <h2 class="font-bold">{{ department }}</h2>
         </div>
       </div>
-      <div v-if="selectedRegion && selectedDepartment && !selectedCity" class="grid grid-cols-4 gap-5 p-8">
+      <div v-if="selectedRegion && selectedDepartment && !selectedCity" class="grid lg:grid-cols-4 max-lg:grid-cols-1 gap-5 p-8">
         <div class="col bg-gray-100 shadow-lg rounded-lg p-4 cursor-pointer"
           v-for="(producers, city) in groupedProducers[selectedRegion][selectedDepartment]" :key="city"
           @click="selectCity(city)">
           <h3>{{ city }}</h3>
         </div>
       </div>
-      <div v-if="selectedRegion && selectedDepartment && selectedCity" class="grid grid-cols-4 gap-5 p-8">
+      <div v-if="selectedRegion && selectedDepartment && selectedCity" class="grid lg:grid-cols-4 max-lg:grid-cols-1 gap-5 p-8">
         <div class="col bg-gray-100 shadow-lg rounded-lg p-4"
           v-for="producer in groupedProducers[selectedRegion][selectedDepartment][selectedCity]" :key="producer.id">
           <h2 class="font-bold">{{ producer.name }}</h2>
