@@ -15,4 +15,19 @@ db.exec(`
   )
 `);
 
+db.exec(`
+  CREATE TABLE IF NOT EXISTS producers (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    region TEXT,
+    department TEXT,
+    city TEXT,
+    name TEXT,
+    url TEXT,
+    address TEXT,
+    site TEXT,
+    email TEXT,
+    phone TEXT
+  )
+`);
+
 export default db;
