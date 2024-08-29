@@ -48,11 +48,12 @@
 </template>
 
 <script>
+import producers from '../static/producers.json';
 export default {
   name: 'Products',
   data() {
     return {
-      producers: [],
+      producers: producers,
       groupedProducers: {},
       selectedRegion: null,
       selectedDepartment: null,
@@ -60,19 +61,9 @@ export default {
     }
   },
   async mounted() {
-    await this.fetchProducers();
     this.groupProducers();
   },
   methods: {
-    async fetchProducers() {
-      try {
-        const response = await $fetch('/api/producers');
-        this.producers = response.body || [];
-      } catch (error) {
-        console.error('Erreur lors de la récupération des producteurs:', error);
-        this.producers = [];
-      }
-    },
     groupProducers() {
       this.groupedProducers = this.producers.reduce((acc, producer) => {
         const { region, department, city } = producer;
