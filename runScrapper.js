@@ -2,7 +2,7 @@ import scrapeProducers from './services/scrapper.js';
 
 (async () => {
   try {
-    const result = await scrapeProducers('Normandie');
+    const result = await scrapeProducers('Occitanie');
     result.forEach(cityData => {
       console.log(`\nVille: ${cityData.city}`);
       cityData.producer.forEach(producer => {
