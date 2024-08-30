@@ -2,9 +2,7 @@ import scrapeProducers from './services/scrapper.js';
 
 (async () => {
   try {
-    const result = await scrapeProducers();
-
-    // Afficher les producteurs pour chaque ville
+    const result = await scrapeProducers('Normandie');
     result.forEach(cityData => {
       console.log(`\nVille: ${cityData.city}`);
       cityData.producer.forEach(producer => {

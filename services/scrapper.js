@@ -1,9 +1,10 @@
 import puppeteer from 'puppeteer';
 import db from '../server/database.js';
 
+// Crée un index pour accélérer la recherche des URLs déjà traitées
 db.exec('CREATE INDEX IF NOT EXISTS idx_url ON producers(url)');
 
-async function scrapeAndStoreProducers() {
+async function scrapeAndStoreProducers(startRegion = null) {
   const browser = await puppeteer.launch({ headless: true });
   const page = await browser.newPage();
 
@@ -20,7 +21,18 @@ async function scrapeAndStoreProducers() {
 
   console.log(`Nombre de régions trouvées : ${regionLinks.length}`);
 
+  let startScraping = startRegion ? false : true;
+
   for (let region of regionLinks) {
+    if (!startScraping) {
+      if (region.name === startRegion) {
+        startScraping = true; // Commence le scraping à partir de cette région
+      } else {
+        console.log(`Région ignorée : ${region.name}`);
+        continue; // Ignore cette région et passe à la suivante
+      }
+    }
+
     console.log(`\nScraping pour la région: ${region.name}`);
     await page.goto(region.url, { waitUntil: 'networkidle2' });
 
