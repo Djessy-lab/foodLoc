@@ -1,7 +1,6 @@
 import puppeteer from 'puppeteer';
 import db from '../server/database.js';
 
-// Crée un index pour accélérer la recherche des URLs déjà traitées
 db.exec('CREATE INDEX IF NOT EXISTS idx_url ON producers(url)');
 
 async function scrapeAndStoreProducers(startRegion = null) {
@@ -26,10 +25,10 @@ async function scrapeAndStoreProducers(startRegion = null) {
   for (let region of regionLinks) {
     if (!startScraping) {
       if (region.name === startRegion) {
-        startScraping = true; // Commence le scraping à partir de cette région
+        startScraping = true;
       } else {
         console.log(`Région ignorée : ${region.name}`);
-        continue; // Ignore cette région et passe à la suivante
+        continue;
       }
     }
 
