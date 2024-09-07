@@ -15,42 +15,17 @@
         </button>
       </div>
     </div>
-    <div class="bg-gradient-to-b from-blue-100 to-blue-0">
-      <div v-if="!selectedRegion && !selectedDepartment && !selectedCity"
-        class="grid lg:grid-cols-2 max-lg:grid-cols-1 gap-5 p-8">
-        <div class="col bg-gray-100 shadow-lg rounded-lg p-4 cursor-pointer"
-          v-for="(departments, region) in groupedProducers" :key="region" @click="selectRegion(region)">
-          <h1 class="font-extrabold text-xl">{{ region }}</h1>
-        </div>
+    <div class="bg-gradient-to-b from-blue-100 to-blue-0 flex">
+      <div class="w-2/3 p-8">
+        <LocationSelector :regions="Object.keys(groupedProducers)"
+          :departments="selectedRegion ? Object.keys(groupedProducers[selectedRegion]) : []"
+          :cities="selectedDepartment ? Object.keys(groupedProducers[selectedRegion][selectedDepartment]) : []"
+          @regionSelected="selectRegion" @departmentSelected="selectDepartment" @citySelected="selectCity"
+          :selectedRegion="selectedRegion" :groupedProducers="groupedProducers" />
       </div>
-      <div v-if="selectedRegion && !selectedDepartment && !selectedCity"
-        class="grid lg:grid-cols-4 max-lg:grid-cols-1 gap-5 p-8">
-        <div class="col bg-gray-100 shadow-lg rounded-lg p-4 cursor-pointer"
-          v-for="(cities, department) in groupedProducers[selectedRegion]" :key="department"
-          @click="selectDepartment(department)">
-          <h2 class="font-bold">{{ department }}</h2>
-        </div>
-      </div>
-      <div v-if="selectedRegion && selectedDepartment && !selectedCity"
-        class="grid lg:grid-cols-4 max-lg:grid-cols-1 gap-5 p-8">
-        <div class="col bg-gray-100 shadow-lg rounded-lg p-4 cursor-pointer"
-          v-for="(producers, city) in groupedProducers[selectedRegion][selectedDepartment]" :key="city"
-          @click="selectCity(city)">
-          <h3>{{ city }}</h3>
-        </div>
-      </div>
-      <div v-if="selectedRegion && selectedDepartment && selectedCity"
-        class="grid lg:grid-cols-3 max-lg:grid-cols-1 gap-5 p-8">
-        <div class="col bg-gray-100 shadow-lg rounded-lg p-6"
-          v-for="producer in groupedProducers[selectedRegion][selectedDepartment][selectedCity]" :key="producer.id">
-          <h2 class="font-bold text-lg text-center mb-4">{{ producer.name }}</h2>
-          <p><span class="font-bold">Adresse: </span>{{ producer.address }}</p>
-          <p v-if="producer.site.includes('http')"><span class="font-bold">Site:</span> <a
-              class="text-blue-600 underline" :href="producer.site" target="_blank">{{ producer.site }}</a></p>
-          <p><span class="font-bold">Email:</span> <a class="text-blue-600 underline"
-              :href="'mailto:' + producer.email">{{ producer.email }}</a></p>
-          <p><span class="font-bold">Téléphone: </span> <a class="underline" :href="'tel:' + producer.phone">{{
-          producer.phone }}</a></p>
+      <div class="w-1/3 p-8 flex justify-center items-center">
+        <div class="w-[100%] h-[100%]">
+          <FranceMap @regionSelected="(region) => selectRegion(region)" />
         </div>
       </div>
     </div>
@@ -100,7 +75,6 @@ export default {
 
       this.groupedProducers = filteredProducers.reduce((acc, producer) => {
         const { region, department, city } = producer;
-
         if (!acc[region]) acc[region] = {};
         if (!acc[region][department]) acc[region][department] = {};
         if (!acc[region][department][city]) acc[region][department][city] = [];
@@ -140,7 +114,7 @@ export default {
         producersList = producersList.filter(producer => producer.city === this.selectedCity);
       }
       if (this.search) {
-        const lowerCaseSearch = this.search
+        const lowerCaseSearch = this.search.toLowerCase();
         producersList = producersList.filter(producer =>
           producer.name.toLowerCase().includes(lowerCaseSearch) ||
           producer.region.toLowerCase().includes(lowerCaseSearch) ||
