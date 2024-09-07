@@ -15,15 +15,15 @@
         </button>
       </div>
     </div>
-    <div class="bg-gradient-to-b from-blue-100 to-blue-0 flex">
-      <div class="w-2/3 p-8">
+    <div class="bg-gradient-to-b from-blue-100 to-blue-0 flex flex-col-reverse lg:flex-row">
+      <div class="lg:w-2/3 p-8">
         <LocationSelector :regions="Object.keys(groupedProducers)"
           :departments="selectedRegion ? Object.keys(groupedProducers[selectedRegion]) : []"
           :cities="selectedDepartment ? Object.keys(groupedProducers[selectedRegion][selectedDepartment]) : []"
           @regionSelected="selectRegion" @departmentSelected="selectDepartment" @citySelected="selectCity"
           :selectedRegion="selectedRegion" :groupedProducers="groupedProducers" />
       </div>
-      <div class="w-1/3 p-8 flex justify-center items-center">
+      <div class="lg:w-1/3 p-8 flex justify-center items-center">
         <div class="w-[100%] h-[100%]">
           <FranceMap @regionSelected="(region) => selectRegion(region)" />
         </div>
