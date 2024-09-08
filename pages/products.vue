@@ -17,12 +17,20 @@
     </div>
     <div class="bg-gradient-to-b from-blue-100 to-blue-0 flex flex-col-reverse lg:flex-row">
       <div class="lg:w-2/3 p-8">
-        <LocationSelector :regions="Object.keys(groupedProducers)"
+        <LocationSelector
+          :regions="Object.keys(groupedProducers)"
           :departments="selectedRegion ? Object.keys(groupedProducers[selectedRegion]) : []"
           :cities="selectedDepartment ? Object.keys(groupedProducers[selectedRegion][selectedDepartment]) : []"
-          @regionSelected="selectRegion" @departmentSelected="selectDepartment" @citySelected="selectCity"
-          :selectedRegion="selectedRegion" :groupedProducers="groupedProducers" />
+          :groupedProducers="groupedProducers"
+          :selectedRegion="selectedRegion"
+          :selectedDepartment="selectedDepartment"
+          :selectedCity="selectedCity"
+          @regionSelected="selectRegion"
+          @departmentSelected="selectDepartment"
+          @citySelected="selectCity"
+        />
       </div>
+
       <div class="lg:w-1/3 p-8 flex justify-center items-center">
         <div class="w-[100%] h-[100%]">
           <FranceMap @regionSelected="(region) => selectRegion(region)" />
@@ -34,30 +42,25 @@
 
 <script>
 import producers from '../static/producers.json';
+
 export default {
   name: 'Products',
   data() {
     return {
       producers: producers,
-      filteredProducers: producers,
       groupedProducers: {},
       selectedRegion: null,
       selectedDepartment: null,
       selectedCity: null,
       search: ""
-    }
+    };
   },
-  async mounted() {
+  mounted() {
     this.groupProducers();
   },
-
   watch: {
-    search: {
-      immediate: true,
-      deep: true,
-      handler() {
-        this.groupProducers();
-      }
+    search() {
+      this.groupProducers();
     },
     selectedRegion() {
       this.groupProducers();
@@ -72,9 +75,9 @@ export default {
   methods: {
     groupProducers() {
       const filteredProducers = this.filteredProducersBySelection();
-
       this.groupedProducers = filteredProducers.reduce((acc, producer) => {
         const { region, department, city } = producer;
+
         if (!acc[region]) acc[region] = {};
         if (!acc[region][department]) acc[region][department] = {};
         if (!acc[region][department][city]) acc[region][department][city] = [];
@@ -85,9 +88,12 @@ export default {
     },
     selectRegion(region) {
       this.selectedRegion = region;
+      this.selectedDepartment = null;
+      this.selectedCity = null;
     },
     selectDepartment(department) {
       this.selectedDepartment = department;
+      this.selectedCity = null;
     },
     selectCity(city) {
       this.selectedCity = city;
@@ -123,7 +129,7 @@ export default {
       }
 
       return producersList;
-    },
+    }
   }
-}
+};
 </script>
