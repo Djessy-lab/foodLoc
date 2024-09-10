@@ -38,7 +38,7 @@ export default {
     handleRegionSelect(region) {
       this.$emit('regionSelected', region.title);
       if (this.selectedRegion === region.id) {
-        this.selectedRegion = null; 
+        this.selectedRegion = null;
       } else {
         this.selectedRegion = region.id;
       }
