@@ -30,7 +30,6 @@
           @citySelected="selectCity"
         />
       </div>
-
       <div class="lg:w-1/3 p-8 flex justify-center items-center">
         <div class="w-[100%] h-[100%]">
           <FranceMap @regionSelected="(region) => selectRegion(region)" />

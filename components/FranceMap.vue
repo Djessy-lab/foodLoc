@@ -5,7 +5,7 @@
       <g id="regions" fill="#60a5fa" stroke="white" stroke-width="1.5">
         <path v-for="region in regions" :id="region.id" :title="region.title" :d="region.path"
           @click="() => handleRegionSelect(region)" @mouseover="hoverRegion(region.id)" @mouseleave="leaveRegion"
-          :class="{ 'hovered': region.id === hoveredRegion }"></path>
+          :class="{ 'hovered': region.id === hoveredRegion, 'selected': region.id === selectedRegion }"></path>
       </g>
     </svg>
   </div>
@@ -16,6 +16,7 @@ export default {
   data() {
     return {
       hoveredRegion: null,
+      selectedRegion: null,
       regions: [
         { id: "r21", title: "Provence-Alpes-Côte d'Azur", path: "M500 404l-3-7-3 3-9 3-1-2-7-3-7-1-1-4-4-4 1-4-3-5 3-3 1-6 5-1-3-9-3-1-3 1-5-3-1-6-3-1-2-5h-4l-2 3h-4l-2-3-3-1-3 8h5l2 3v6l-2-2-7 1-2 2-5 1 1 2-7 3v2l-1 3h-6l-2 6 2 3h-7v3l1 1-2 1 1 4 6 1 4 8-1 3-3-2-1 2-4 2-4-5-4-1h-5l-1-5-13 5-3-5-5-1-1 3 4 5v7l6 4-5 4-4 5v9h-5l-3 5 1 2-9 5-1 2 8 1h8l-1 4 4 2 6-1 4-5 4 2 2 4h8l4-2 2 6-1 3 8-1 2 3 4-1 4 3 3 5 5-2-3-3 9 2 3 3 1-4 3-1 5 2 2-4 9-2 2-6h-4l7-9h5l2-3 4-5h5l6-9 9-6-1-5 7-7z" },
         { id: "r18", title: "Pays de la Loire", path: "M220 171l-4-2-3-1-2-3h-5l-2-4-4-1v-6l-3-3-6 1-4 4h-3l-1-4h-2l-4-7-2 3-4 1-5-1-4 3-2-2-4 3-3-4-9-1 1 4-1 2 1 4-3 4 3 13v4h-6l-1 7-3 5-7-4-8 3-1 4h-11l-7 3-1 6h-6l-2 4-4-1-5 4v6l9 3 4-4 10 1 6 7-9-6-5 1-1 4-3 4 6 2 4 4-7 9v3l6 6 5 13 7 6h4l3 5 4-1 5 5 4-2 8-3v3l5-1 3 2 5-1 3-3-3-3v-4l1-6-4-10 1-2-6-10 4-2 6 2 3-3-1-3 4 2 3-2h6l3-1v3h3v-2l2 1 2-5h2l2-10 4-2v-9l2-4 6 2-1-3h4l7-4 1-5 4-2v-5l3 1v-8l-2-3 3-1z" },
@@ -36,6 +37,11 @@ export default {
   methods: {
     handleRegionSelect(region) {
       this.$emit('regionSelected', region.title);
+      if (this.selectedRegion === region.id) {
+        this.selectedRegion = null; 
+      } else {
+        this.selectedRegion = region.id;
+      }
     },
     hoverRegion(id) {
       this.hoveredRegion = id;
@@ -52,5 +58,9 @@ export default {
   fill: #2563eb;
   cursor: pointer;
   transition: fill 0.3s ease;
+}
+
+.selected {
+  fill: #2563eb;
 }
 </style>
