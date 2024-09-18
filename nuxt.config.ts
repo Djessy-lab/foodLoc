@@ -6,14 +6,19 @@ export default defineNuxtConfig({
     "@nuxtjs/tailwindcss",
     "@nuxtjs/color-mode",
     "nuxt-lucide-icons",
-    "@nuxt/icon"
+    "@nuxt/icon",
   ],
+  runtimeConfig: {
+    public: {
+      magicApiKey: process.env.MAGIC_LINK_PUBLIC_KEY, 
+    },
+  },
   tailwindcss: {
     config: {
       theme: {
         extend: {
           fontFamily: {
-            amsterdam: ['New Amsterdam', 'sans-serif'],
+            amsterdam: ["New Amsterdam", "sans-serif"],
           },
         },
       },
