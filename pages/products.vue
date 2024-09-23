@@ -6,7 +6,7 @@
       </div>
       <h1 class="text-center text-6xl font-amsterdam">Liste des Producteurs</h1>
       <div class="flex justify-center mt-10">
-        <input v-model="search" type="text" placeholder="Recherchez votre producteur ici"
+        <input v-model="search" type="text" id="search-email" placeholder="Recherchez votre producteur ici"
           class="rounded-2xl shadow w-80 p-2 text-center" />
       </div>
       <div v-if="selectedRegion || selectedDepartment || selectedCity">

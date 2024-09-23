@@ -6,7 +6,7 @@
         <p class="mt-2">Inscrivez-vous aujourd'hui et bénéficiez de 40% de réduction</p>
       </div>
       <div class="w-full flex justify-center">
-        <input v-model="email" type="email" placeholder="votre.meilleur@email.com"
+        <input v-model="email" type="email" id="get-email" placeholder="votre.meilleur@email.com"
           class="w-80 rounded-2xl p-1 text-center">
       </div>
       <div class="w-full flex justify-center mt-4">

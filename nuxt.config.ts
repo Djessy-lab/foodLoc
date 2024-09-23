@@ -10,7 +10,7 @@ export default defineNuxtConfig({
   ],
   runtimeConfig: {
     public: {
-      magicApiKey: process.env.MAGIC_LINK_PUBLIC_KEY, 
+      baseUrl: process.env.BASE_URL
     },
   },
   tailwindcss: {
