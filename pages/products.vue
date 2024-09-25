@@ -1,9 +1,7 @@
 <template>
   <div>
     <div class="bg-gradient-to-b from-blue-200 to-blue-100">
-      <div>
-        <button @click="$router.push('/')" class="bg-blue-500 w-20 text-white p-2 ml-4 mt-4 rounded-lg">Accueil</button>
-      </div>
+      <div class="text-xl font-bold font-mono p-4"><a href="/">FoodLoc</a></div>
       <h1 class="text-center text-6xl font-amsterdam">Liste des Producteurs</h1>
       <div class="flex justify-center mt-10">
         <input v-model="search" type="text" id="search-email" placeholder="Recherchez votre producteur ici"
@@ -17,18 +15,12 @@
     </div>
     <div class="bg-gradient-to-b from-blue-100 to-blue-0 flex flex-col-reverse lg:flex-row">
       <div class="lg:w-2/3 p-8">
-        <LocationSelector
-          :regions="Object.keys(groupedProducers)"
+        <LocationSelector :regions="Object.keys(groupedProducers)"
           :departments="selectedRegion ? Object.keys(groupedProducers[selectedRegion]) : []"
           :cities="selectedDepartment ? Object.keys(groupedProducers[selectedRegion][selectedDepartment]) : []"
-          :groupedProducers="groupedProducers"
-          :selectedRegion="selectedRegion"
-          :selectedDepartment="selectedDepartment"
-          :selectedCity="selectedCity"
-          @regionSelected="selectRegion"
-          @departmentSelected="selectDepartment"
-          @citySelected="selectCity"
-        />
+          :groupedProducers="groupedProducers" :selectedRegion="selectedRegion" :selectedDepartment="selectedDepartment"
+          :selectedCity="selectedCity" @regionSelected="selectRegion" @departmentSelected="selectDepartment"
+          @citySelected="selectCity" />
       </div>
       <div class="lg:w-1/3 p-8 flex justify-center items-center">
         <div class="w-[100%] h-[100%]">
