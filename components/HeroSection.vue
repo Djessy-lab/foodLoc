@@ -1,11 +1,11 @@
 <template>
   <div :class="gradientClass">
     <header class="flex items-center justify-between p-4">
-      <div class="text-xl font-bold font-mono"><a href="/">FoodLoc</a></div>
+      <div class="text-xl font-bold font-mono"><a href="/">{{ appName }}</a></div>
       <nav>
         <ul class="flex space-x-4">
           <li v-if="userEmail">
-            <a href="/products" :class="linkClass">Notre annuaire</a>
+            <div @click="goToProduct" class="cursor-pointer" :class="linkClass">Notre annuaire</div>
           </li>
           <li><a href="#testimonials" :class="linkClass">Avis</a></li>
           <li v-if="!userEmail">
@@ -28,18 +28,13 @@
         Bienvenue, {{ userEmail }}!
       </div>
       <div v-if="!userEmail" class="mt-6">
-        <button
-          :class="`max-w-32 min-w-32 ${buttonClass} text-white px-4 py-2 rounded-lg shadow`"
-        >
-          <a href="/login">S'inscrire </a>
+        <button @click="goLogin" :class="`max-w-32 min-w-32 ${buttonClass} text-white px-4 py-2 rounded-lg shadow`">
+          S'inscrire
         </button>
       </div>
       <div class="mt-8">
-        <img
-          src="/img/coeur.png"
-          alt="Producteurs et Consommateurs"
-          class="mx-auto sm:w-[80%] lg:w-[35%]"
-        />
+        <img :src="imgHero" alt="Producteurs et Consommateurs"
+          class="mx-auto sm:w-[80%] lg:w-[35%]" />
       </div>
     </section>
   </div>
@@ -54,9 +49,11 @@ export default {
     };
   },
   props: {
-    title: {type: String, default: ""},
-    description: {type: String, default: ""},
-    color: {type: String, default: "blue"},
+    title: { type: String, default: "" },
+    description: { type: String, default: "" },
+    color: { type: String, default: "blue" },
+    imgHero: { type: String, default: "" },
+    appName: { type: String, default: "" },
   },
   created() {
     this.fetchUserEmail();
@@ -112,7 +109,7 @@ export default {
       };
       return colorClasses[this.color] || colorClasses['blue'];
     },
-    buttonClass(){
+    buttonClass() {
       const colorClasses = {
         blue: 'bg-blue-600 hover:bg-blue-700',
         red: 'bg-red-600 hover:bg-red-700',
@@ -139,6 +136,12 @@ export default {
     }
   },
   methods: {
+    goLogin() {
+      this.$router.push({path: '/login', query: { color: this.color, appName: this.appName }});
+    },
+    goToProduct() {
+      this.$router.push({path: '/products', query: { color: this.color, appName: this.appName }});
+    },
     setUserEmail(email) {
       this.userEmail = email;
     },

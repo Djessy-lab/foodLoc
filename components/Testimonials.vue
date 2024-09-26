@@ -23,14 +23,15 @@
 
 
 <script>
-import testimonials from '@/data/testimonials.js'
 
 export default {
   name: 'Testimonials',
   data() {
     return {
-      testimonials
     }
   },
+  props: {
+    testimonials: { type: Array, default: () => [] },
+  }
 }
 </script>

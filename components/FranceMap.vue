@@ -2,10 +2,12 @@
   <div class="w-full h-full mt-10">
     <svg version="1.0" id="Calque_2" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
       x="0px" y="0px" viewBox="0 0 534 520" xml:space="preserve" style="width: 100%;">
-      <g id="regions" fill="#60a5fa" stroke="white" stroke-width="1.5">
+      <g id="regions" :fill="colorNameToHex(color)" stroke="white" stroke-width="1.5">
         <path v-for="region in regions" :id="region.id" :title="region.title" :d="region.path"
           @click="() => handleRegionSelect(region)" @mouseover="hoverRegion(region.id)" @mouseleave="leaveRegion"
-          :class="{ 'hovered': region.id === hoveredRegion, 'selected': region.id === selectedRegion }"></path>
+          :style="{
+        fill: region.id === selectedRegion ? colorNameToHexStrong(color) : (region.id === hoveredRegion ? colorNameToHexStrong(color) : '')
+      }"></path>
       </g>
     </svg>
   </div>
@@ -34,6 +36,9 @@ export default {
       ]
     };
   },
+  props: {
+    color: { type: String, default: "blue" },
+  },
   methods: {
     handleRegionSelect(region) {
       this.$emit('regionSelected', region.title);
@@ -48,6 +53,56 @@ export default {
     },
     leaveRegion() {
       this.hoveredRegion = null;
+    },
+    colorNameToHex(colorName) {
+      const colorClasses = {
+        blue: '#007bff',
+        red: '#dc3545',
+        green: '#28a745',
+        yellow: '#ffc107',
+        emerald: '#17a2b8',
+        sky: '#0d6efd',
+        rose: '#d63384',
+        slate: '#6c757d',
+        pink: '#d63384',
+        orange: '#f57c00',
+        neutral: '#212529',
+        stone: '#f8f9fa',
+        amber: '#ffc107',
+        lime: '#28a745',
+        teal: '#20c997',
+        cyan: '#17a2b8',
+        indigo: '#6610f2',
+        violet: '#6c757d',
+        purple: '#6f42c1',
+        fuchsia: '#c026d3',
+      };
+      return colorClasses[colorName] || colorClasses['blue'];
+    },
+    colorNameToHexStrong(colorName) {
+      const strongColors = {
+        blue: '#0056b3',
+        red: '#c82333',
+        green: '#218838',
+        yellow: '#e0a800',
+        emerald: '#138496',
+        sky: '#0b5ed7',
+        rose: '#bd2d6c',
+        slate: '#5a6268',
+        pink: '#bd2d6c',
+        orange: '#e57c00',
+        neutral: '#1c1e21',
+        stone: '#e2e6ea',
+        amber: '#e0a800',
+        lime: '#218838',
+        teal: '#198754',
+        cyan: '#138496',
+        indigo: '#6610f2',
+        violet: '#5a6268',
+        purple: '#5f3f8d',
+        fuchsia: '#a020b3',
+      };
+      return strongColors[colorName] || null;
     },
   }
 };

@@ -20,17 +20,16 @@
 </template>
 
 <script>
-import pricing from '@/data/pricing.js'
 
 export default {
   name: 'Pricing',
   data() {
-    return {
-      pricing
+    return {  
     }
   },
   props: {
     color: { type: String, default: "blue" },
+    pricing: { type: Array, default: () => [] },
   },
   computed: {
     gradientClass() {

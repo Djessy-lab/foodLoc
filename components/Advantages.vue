@@ -1,6 +1,6 @@
 <template>
   <div :class="`lg:h-[70vh] ${gradientClass}`">
-    <h2 class="text-3xl font-bold text-center p-12">Pourquoi utiliser FoodLoc ?</h2>
+    <h2 class="text-3xl font-bold text-center p-12">Pourquoi utiliser {{ appName }} ?</h2>
     <div class="flex justify-center max-lg:flex-col max-lg:items-center px-10 lg:mt-10 max-lg:mb-20">
       <div v-for="(advantage, index) in advantages" :key="index"
         class="shadow-lg bg-gray-100 rounded-lg w-96 max-lg:h-[30%] max-lg:w-[100%] max-lg:overflow-scroll  p-10 lg:mr-10 max-lg:mt-10 transition-transform duration-700 hover:-translate-y-2 ">
@@ -13,16 +13,16 @@
 
 
 <script>
-import advantages from '@/data/advantages.js'
 export default {
   name: 'Advantages',
   data() {
     return {
-      advantages
     }
   },
   props: {
     color: { type: String, default: "blue" },
+    advantages: { type: Array, default: () => [] },
+    appName: { type: String, default: "" },
   },
   computed: {
     gradientClass() {
