@@ -1,17 +1,23 @@
 <template>
-  <Saas v-bind="foodloc" />
+  <div>
+    <!-- <ConfigForm @configUpdated="(name) => updateConfig(name)" /> -->
+    <Saas v-bind="currentConfig" />
+  </div>
 </template>
 
 <script>
-import config from '@/data/config.js'
+import config from '@/data/config.js';
+import ConfigForm from '@/components/ConfigForm.vue';
 
 export default {
   name: 'Home',
+  components: {
+    ConfigForm
+  },
   data() {
     return {
-      foodloc: config.foodloc,
-      test: config.test
-    }
-  }
+      currentConfig: config.foodloc
+    };
+  },
 }
 </script>
