@@ -48,6 +48,10 @@ export default {
   },
   mounted() {
     this.groupProducers();
+    const token = localStorage.getItem('token');
+    if(!token){
+      this.$router.push('/login');
+    }
   },
   watch: {
     search() {
