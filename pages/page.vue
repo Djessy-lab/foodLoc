@@ -17,7 +17,7 @@ export default {
     if(this.$route.query.configName){
       this.currentConfig = config[this.$route.query.configName]
     } else {
-      this.currentConfig = config.newSite
+      this.currentConfig = config.foodloc
     }
   }
 }
