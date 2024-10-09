@@ -1,7 +1,7 @@
 <template>
   <div>
-    <!-- <ConfigForm @configUpdated="(name) => updateConfig(name)" /> -->
-    <Saas v-bind="currentConfig" />
+    <ConfigForm @configUpdated="(name) => updateConfig(name)" />
+    <!-- <Saas v-bind="currentConfig" /> -->
   </div>
 </template>
 
@@ -19,5 +19,10 @@ export default {
       currentConfig: config.foodloc
     };
   },
+  methods: {
+    async updateConfig(newConfigName) {
+      this.currentConfig = config[newConfigName];
+    }
+  }
 }
 </script>

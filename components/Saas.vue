@@ -6,7 +6,7 @@
     <Advantages :color="color" :advantages="advantages" :appName="appName" />
   </div>
   <div>
-    <HowItsWorks />
+    <HowItsWorks :imgArg="imgArg" />
   </div>
   <div>
     <Pricing :color="color" :pricing="pricing" />
@@ -28,6 +28,7 @@ export default {
     descriptionHero: { type: String, default: "" },
     color: { type: String, default: "blue" },
     imgHero: { type: String, default: "" },
+    imgArg: { type: String, default: "" },
     advantages: { type: Array, default: () => [] },
     testimonials: { type: Array, default: () => [] },
     pricing: { type: Array, default: () => [] },
