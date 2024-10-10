@@ -29,6 +29,8 @@ export default {
       console.error('Erreur lors du chargement de la configuration:', error);
       this.configError = true;
     }
+
+    
   },
   methods: {
     async loadConfig() {
