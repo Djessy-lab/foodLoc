@@ -1,11 +1,10 @@
 <template>
   <div>
-    <ConfigForm @configUpdated="(name) => updateConfig(name)" />
+    <ConfigForm @configUpdated="updateConfig" />
   </div>
 </template>
 
 <script>
-import config from '@/server/config.js';
 import ConfigForm from '@/components/ConfigForm.vue';
 
 export default {
@@ -15,12 +14,21 @@ export default {
   },
   data() {
     return {
-      currentConfig: config.foodloc
+      currentConfig: null
     };
   },
   methods: {
-    async updateConfig(newConfigName) {
-      this.currentConfig = config[newConfigName];
+    async updateConfig(configName) {
+      try {
+        const config = await $fetch(`/api/getConfig?configName=${configName}`);
+        if (!config.error) {
+          this.currentConfig = config;
+        } else {
+          console.error(config.error);
+        }
+      } catch (error) {
+        console.error('Erreur lors de la récupération de la configuration:', error);
+      }
     }
   }
 }

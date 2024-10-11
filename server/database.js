@@ -46,4 +46,11 @@ db.exec(`
   )
 `);
 
+db.exec(`
+  CREATE TABLE IF NOT EXISTS configs (
+    configName TEXT PRIMARY KEY,
+    config TEXT NOT NULL
+  )
+`);
+
 export default db;

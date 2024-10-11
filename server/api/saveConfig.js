@@ -1,20 +1,14 @@
 import { defineEventHandler, readBody } from 'h3';
-import fs from 'fs';
-import path from 'path';
+import db from '../database';
 
 export default defineEventHandler(async (event) => {
   const body = await readBody(event);
-  const configPath = path.join(process.cwd(), '/server/config.js');
 
   try {
-    const currentConfig = (await import(configPath)).default;
+    const stmt = db.prepare('INSERT OR REPLACE INTO configs (configName, config) VALUES (?, ?)');
+    const info = stmt.run(body.configName, JSON.stringify(body.config));
 
-    currentConfig[body.configName] = { ...body.config };
-
-    const configContent = `export default ${JSON.stringify(currentConfig, null, 2)};`;
-    fs.writeFileSync(configPath, configContent);
-
-    return { message: 'Configuration sauvegardée avec succès!' };
+    return { message: 'Configuration sauvegardée avec succès!', id: info.lastInsertRowid };
   } catch (error) {
     console.error('Erreur lors de la sauvegarde de la configuration:', error);
     return { message: 'Erreur lors de la sauvegarde de la configuration.' };

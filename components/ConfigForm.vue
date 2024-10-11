@@ -129,14 +129,10 @@ export default {
   methods: {
     async submitForm() {
       try {
-        const response = await $fetch('/api/saveConfig', {
+        const result = await $fetch('/api/saveConfig', {
           method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({ configName: this.configName, config: this.config })
+          body: { configName: this.configName, config: this.config }
         });
-        const result = await response.json();
         alert(result.message);
         this.$router.push({ name: 'page', query: { configName: this.configName } });
       } catch (error) {
