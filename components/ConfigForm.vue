@@ -129,7 +129,7 @@ export default {
   methods: {
     async submitForm() {
       try {
-        const response = await fetch('/api/saveConfig', {
+        const response = await $fetch('/api/saveConfig', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'

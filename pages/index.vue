@@ -1,12 +1,11 @@
 <template>
   <div>
     <ConfigForm @configUpdated="(name) => updateConfig(name)" />
-    <!-- <Saas v-bind="currentConfig" /> -->
   </div>
 </template>
 
 <script>
-import config from '@/data/config.js';
+import config from '@/server/config.js';
 import ConfigForm from '@/components/ConfigForm.vue';
 
 export default {

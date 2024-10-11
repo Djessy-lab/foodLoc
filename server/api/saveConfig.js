@@ -4,7 +4,7 @@ import path from 'path';
 
 export default defineEventHandler(async (event) => {
   const body = await readBody(event);
-  const configPath = path.join(process.cwd(), '/data/config.js');
+  const configPath = path.join(process.cwd(), '/server/config.js');
 
   try {
     const currentConfig = (await import(configPath)).default;

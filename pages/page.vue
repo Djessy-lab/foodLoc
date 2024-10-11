@@ -7,7 +7,7 @@
 </template>
 
 <script>
-import config from '@/data/config.js';
+import config from '@/server/config.js';
 import { defineAsyncComponent } from 'vue';
 
 export default {
@@ -29,8 +29,6 @@ export default {
       console.error('Erreur lors du chargement de la configuration:', error);
       this.configError = true;
     }
-
-    
   },
   methods: {
     async loadConfig() {
@@ -43,11 +41,8 @@ export default {
         this.currentConfig = config.foodloc;
       }
 
-      if (this.validateConfig(this.currentConfig)) {
-        this.isConfigReady = true;
-      } else {
-        throw new Error('Configuration invalide');
-      }
+      this.isConfigReady = true;
+
 
       console.log('Configuration actuelle:', this.currentConfig);
     },
