@@ -24,7 +24,7 @@
 export default {
   name: 'Pricing',
   data() {
-    return {  
+    return {
     }
   },
   props: {
@@ -54,6 +54,7 @@ export default {
         violet: 'bg-gradient-to-b from-violet-200 to-violet-100',
         purple: 'bg-gradient-to-b from-purple-200 to-purple-100',
         fuchsia: 'bg-gradient-to-b from-fuchsia-200 to-fuchsia-100',
+        dark: 'bg-stone-900 text-white'
       };
       return colorClasses[this.color] || colorClasses['blue'];
     },

@@ -50,6 +50,7 @@ export default {
         violet: 'bg-gradient-to-b from-violet-100 to-violet-200',
         purple: 'bg-gradient-to-b from-purple-100 to-purple-200',
         fuchsia: 'bg-gradient-to-b from-fuchsia-100 to-fuchsia-200',
+        dark: 'bg-stone-900 text-white',
       };
       return colorClasses[this.color] || colorClasses['blue'];
     },

@@ -18,10 +18,10 @@
       </nav>
     </header>
     <section class="text-center py-12">
-      <h1 class="text-4xl font-extrabold text-gray-900">
+      <h1 class="text-4xl font-extrabold text-gray-900" :class="color = 'dark' ? 'text-white' : ''">
         {{ title }}
       </h1>
-      <p class="mt-4 text-lg text-gray-600">
+      <p class="mt-4 text-lg text-gray-600" :class="color = 'dark' ? 'text-white' : ''">
         {{ description }}
       </p>
       <div v-if="userEmail" class="mt-4 text-lg text-gray-800">
@@ -33,8 +33,7 @@
         </button>
       </div>
       <div class="mt-8">
-        <img :src="imgHero" alt="Producteurs et Consommateurs"
-          class="mx-auto sm:w-[80%] lg:w-[35%]" />
+        <img :src="imgHero" alt="Producteurs et Consommateurs" class="mx-auto sm:w-[80%] lg:w-[35%]" />
       </div>
     </section>
   </div>
@@ -81,6 +80,7 @@ export default {
         violet: 'bg-gradient-to-b from-violet-200 to-violet-100',
         purple: 'bg-gradient-to-b from-purple-200 to-purple-100',
         fuchsia: 'bg-gradient-to-b from-fuchsia-200 to-fuchsia-100',
+        dark: 'bg-stone-900 text-white',
       };
       return colorClasses[this.color] || colorClasses['blue'];
     },
@@ -106,6 +106,7 @@ export default {
         violet: 'text-violet-700',
         purple: 'text-purple-700',
         fuchsia: 'text-fuchsia-700',
+        dark: 'text-white'
       };
       return colorClasses[this.color] || colorClasses['blue'];
     },
@@ -131,16 +132,17 @@ export default {
         violet: 'bg-violet-600 hover:bg-violet-700',
         purple: 'bg-purple-600 hover:bg-purple-700',
         fuchsia: 'bg-fuchsia-600 hover:bg-fuchsia-700',
+        dark: 'bg-white text-black'
       };
       return colorClasses[this.color] || colorClasses['blue'];
     }
   },
   methods: {
     goLogin() {
-      this.$router.push({path: '/login', query: { color: this.color, appName: this.appName }});
+      this.$router.push({ path: '/login', query: { color: this.color, appName: this.appName } });
     },
     goToProduct() {
-      this.$router.push({path: '/products', query: { color: this.color, appName: this.appName }});
+      this.$router.push({ path: '/products', query: { color: this.color, appName: this.appName } });
     },
     setUserEmail(email) {
       this.userEmail = email;

@@ -76,6 +76,7 @@ export default {
         violet: '#6c757d',
         purple: '#6f42c1',
         fuchsia: '#c026d3',
+        dark: '#212529',
       };
       return colorClasses[colorName] || colorClasses['blue'];
     },
