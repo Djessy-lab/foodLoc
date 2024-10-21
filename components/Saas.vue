@@ -17,6 +17,9 @@
   <div>
     <GetEmail :color="color" />
   </div>
+  <div class="absolute top-2 right-44">
+    <ThemeToggle />
+  </div>
 </template>
 
 <script>

@@ -1,19 +1,23 @@
 <template>
   <div class="py-8">
+    <div class="ml-4">
+      <ThemeToggle />
+    </div>
     <h2 class="text-3xl font-amsterdam text-center py-4">Créer une nouvelle configuration</h2>
     <div class="rounded-lg shadow-xl w-[80%] mx-auto p-8 bg-gray-50">
-      <form @submit.prevent="submitForm" class="space-y-6">
+      <form @submit.prevent="submitForm" class="space-y-6 dark:text-black">
         <div v-if="currentStep === 1">
           <h3 class="text-xl font-semibold mb-4">Informations de base</h3>
           <div class="grid grid-cols-2 max-lg:grid-cols-1 gap-4">
-            <div v-for="(value, key) in baseFields" :key="key" class="flex flex-col">
+            <div v-for="(value, key) in baseFields" :key="key" class="flex flex-col"
+              :class="{ 'col-span-2': value.type === 'textarea' }">
               <label class="font-semibold" :for="key">{{ value.label }}:</label>
               <input v-if="value.type !== 'textarea'" class="border rounded-lg p-2 mt-1 w-full"
                 :value="key === 'configName' ? configName : config[key]"
                 @input="key === 'configName' ? configName = $event.target.value : config[key] = $event.target.value"
                 :type="value.type" :id="key" required :placeholder="value.placeholder" />
-              <textarea v-else class="border rounded-lg p-2 mt-1 w-full" v-model="config[key]" :id="key"
-                required></textarea>
+              <textarea v-else class="border rounded-lg p-2 mt-1 w-full" v-model="config[key]" :id="key" required
+                :placeholder="value.placeholder" rows="4"></textarea>
             </div>
           </div>
         </div>
@@ -39,11 +43,13 @@
           <div class="space-y-4">
             <div class="flex flex-col space-y-2">
               <input v-model="newPricing.title" placeholder="Titre" class="border rounded-lg p-2">
-              <input v-model.number="newPricing.price" type="number" step="0.01" placeholder="Prix" class="border rounded-lg p-2">
+              <input v-model.number="newPricing.price" type="number" step="0.01" placeholder="Prix"
+                class="border rounded-lg p-2">
               <input v-model="newPricing.duration" placeholder="Durée (ex: mois, jour)" class="border rounded-lg p-2">
               <input v-model="newFeature" placeholder="Caractéristique" class="border rounded-lg p-2">
               <div class="flex justify-between">
-                <button @click.prevent="addFeature" class="bg-green-500 text-white p-2 rounded-lg">Ajouter caractéristique</button>
+                <button @click.prevent="addFeature" class="bg-green-500 text-white p-2 rounded-lg">Ajouter
+                  caractéristique</button>
                 <button @click.prevent="addPricing" class="bg-blue-500 text-white p-2 rounded-lg">Ajouter tarif</button>
               </div>
             </div>
@@ -60,9 +66,12 @@
           <div class="space-y-4">
             <div class="flex flex-col space-y-2">
               <input v-model="newTestimonial.author" placeholder="Auteur" class="border rounded-lg p-2">
-              <textarea v-model="newTestimonial.text" placeholder="Texte du témoignage" class="border rounded-lg p-2"></textarea>
-              <input v-model.number="newTestimonial.stars" type="number" min="1" max="5" placeholder="Nombre d'étoiles (1-5)" class="border rounded-lg p-2">
-              <button @click.prevent="addTestimonial" class="bg-green-500 text-white p-2 rounded-lg">Ajouter témoignage</button>
+              <textarea v-model="newTestimonial.text" placeholder="Texte du témoignage"
+                class="border rounded-lg p-2"></textarea>
+              <input v-model.number="newTestimonial.stars" type="number" min="1" max="5"
+                placeholder="Nombre d'étoiles (1-5)" class="border rounded-lg p-2">
+              <button @click.prevent="addTestimonial" class="bg-green-500 text-white p-2 rounded-lg">Ajouter
+                témoignage</button>
             </div>
             <p>Nombre de témoignages ajoutés : {{ config.testimonials.length }}</p>
             <div v-for="(testimonial, index) in config.testimonials" :key="index" class="flex items-center">
@@ -72,10 +81,13 @@
           </div>
         </div>
 
-        <div class="flex justify-between mt-6">
-          <button v-if="currentStep > 1" @click.prevent="currentStep--" class="bg-gray-500 text-white p-2 rounded-lg">Précédent</button>
-          <button v-if="currentStep < 4" @click.prevent="currentStep++" class="bg-blue-500 text-white p-2 rounded-lg">Suivant</button>
-          <button v-if="currentStep === 4" type="submit" class="bg-green-700 text-white p-2 rounded-lg">Enregistrer</button>
+        <div class="flex justify-end mt-6">
+          <button v-if="currentStep > 1" @click.prevent="currentStep--"
+            class="bg-gray-500 text-white p-2 rounded-lg">Précédent</button>
+          <button v-if="currentStep < 4" @click.prevent="currentStep++"
+            class="bg-blue-500 text-white p-2 rounded-lg ml-2">Suivant</button>
+          <button v-if="currentStep === 4" type="submit"
+            class="bg-green-700 text-white p-2 rounded-lg ml-2">Enregistrer</button>
         </div>
       </form>
     </div>
@@ -108,9 +120,9 @@ export default {
         appName: { label: 'Nom de l\'application', type: 'text', placeholder: 'Mon application' },
         titleHero: { label: 'Titre Hero', type: 'text', placeholder: 'Mon titre' },
         color: { label: 'Couleur', type: 'text', placeholder: 'green' },
-        descriptionHero: { label: 'Description Hero', type: 'textarea', placeholder: 'Description de ma super application...' },
         imgHero: { label: 'Image Hero', type: 'text', placeholder: 'https://...' },
-        imgArg: { label: 'Image Arguments', type: 'text', placeholder: 'https://...' }
+        imgArg: { label: 'Image Arguments', type: 'text', placeholder: 'https://...' },
+        descriptionHero: { label: 'Description Hero', type: 'textarea', placeholder: 'Description de ma super application...' },
       },
       newPricing: {
         title: '',

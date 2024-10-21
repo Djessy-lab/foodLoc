@@ -1,34 +1,34 @@
 <template>
-  <div :class="gradientClass">
+  <div :class="colorMode.value === 'dark' ? 'bg-gray-900' : gradientClass">
     <header class="flex items-center justify-between p-4">
-      <div class="text-xl font-bold font-mono"><a href="/">{{ appName }}</a></div>
+      <div class="text-xl font-bold font-mono" :class="colorMode.value === 'dark' ? 'text-gray-200' : 'text-black'"><a href="/">{{ appName }}</a></div>
       <nav>
         <ul class="flex space-x-4">
           <li v-if="userEmail">
-            <div @click="goToProduct" class="cursor-pointer" :class="linkClass">Notre annuaire</div>
+            <div @click="goToProduct" class="cursor-pointer" :class="colorMode.value === 'dark' ? 'text-gray-200' : linkClass">Notre annuaire</div>
           </li>
-          <li><a href="#testimonials" :class="linkClass">Avis</a></li>
+          <li><a href="#testimonials" :class="colorMode.value === 'dark' ? 'text-gray-200' : linkClass">Avis</a></li>
           <li v-if="!userEmail">
-            <a href="/login" :class="linkClass">Se connecter</a>
+            <a href="/login" :class="colorMode.value === 'dark' ? 'text-gray-200' : linkClass">Se connecter</a>
           </li>
           <li v-if="userEmail">
-            <a href="" :class="linkClass" @click.prevent="logout">Se déconnecter</a>
+            <a href="" :class="colorMode.value === 'dark' ? 'text-gray-200' : linkClass" @click.prevent="logout">Se déconnecter</a>
           </li>
         </ul>
       </nav>
     </header>
     <section class="text-center py-12">
-      <h1 class="text-4xl font-extrabold text-gray-900" :class="color = 'dark' ? 'text-white' : ''">
+      <h1 class="text-4xl font-extrabold" :class="colorMode.value === 'dark' ? 'text-white' : 'text-gray-900'">
         {{ title }}
       </h1>
-      <p class="mt-4 text-lg text-gray-600" :class="color = 'dark' ? 'text-white' : ''">
+      <p class="mt-4 text-lg" :class="colorMode.value === 'dark' ? 'text-gray-300' : 'text-gray-600'">
         {{ description }}
       </p>
-      <div v-if="userEmail" class="mt-4 text-lg text-gray-800">
+      <div v-if="userEmail" class="mt-4 text-lg" :class="colorMode.value === 'dark' ? 'text-gray-300' : 'text-gray-800'">
         Bienvenue, {{ userEmail }}!
       </div>
       <div v-if="!userEmail" class="mt-6">
-        <button @click="goLogin" :class="`max-w-32 min-w-32 ${buttonClass} text-white px-4 py-2 rounded-lg shadow`">
+        <button @click="goLogin" :class="[`max-w-32 min-w-32 px-4 py-2 rounded-lg shadow`, colorMode.value === 'dark' ? 'bg-gray-700 text-white hover:bg-gray-600' : buttonClass]">
           S'inscrire
         </button>
       </div>
@@ -42,6 +42,10 @@
 <script>
 export default {
   name: "HeroSection",
+  setup() {
+    const colorMode = useColorMode()
+    return { colorMode }
+  },
   data() {
     return {
       userEmail: null,
@@ -60,27 +64,27 @@ export default {
   computed: {
     gradientClass() {
       const colorClasses = {
-        blue: 'bg-gradient-to-b from-blue-200 to-blue-100',
-        red: 'bg-gradient-to-b from-red-200 to-red-100',
-        green: 'bg-gradient-to-b from-green-200 to-green-100',
-        yellow: 'bg-gradient-to-b from-yellow-200 to-yellow-100',
-        emerald: 'bg-gradient-to-b from-emerald-200 to-emerald-100',
-        sky: 'bg-gradient-to-b from-sky-200 to-sky-100',
-        rose: 'bg-gradient-to-b from-rose-200 to-rose-100',
-        slate: 'bg-gradient-to-b from-slate-200 to-slate-100',
-        pink: 'bg-gradient-to-b from-pink-200 to-pink-100',
-        orange: 'bg-gradient-to-b from-orange-200 to-orange-100',
-        neutral: 'bg-gradient-to-b from-neutral-200 to-neutral-100',
-        stone: 'bg-gradient-to-b from-stone-200 to-stone-100',
-        amber: 'bg-gradient-to-b from-amber-200 to-amber-100',
-        lime: 'bg-gradient-to-b from-lime-200 to-lime-100',
-        teal: 'bg-gradient-to-b from-teal-200 to-teal-100',
-        cyan: 'bg-gradient-to-b from-cyan-200 to-cyan-100',
-        indigo: 'bg-gradient-to-b from-indigo-200 to-indigo-100',
-        violet: 'bg-gradient-to-b from-violet-200 to-violet-100',
-        purple: 'bg-gradient-to-b from-purple-200 to-purple-100',
-        fuchsia: 'bg-gradient-to-b from-fuchsia-200 to-fuchsia-100',
-        dark: 'bg-stone-900 text-white',
+        blue: 'bg-gradient-to-b from-blue-200 to-blue-100 text-white',
+        red: 'bg-gradient-to-b from-red-200 to-red-100 text-white',
+        green: 'bg-gradient-to-b from-green-200 to-green-100 text-white',
+        yellow: 'bg-gradient-to-b from-yellow-200 to-yellow-100 text-white',
+        emerald: 'bg-gradient-to-b from-emerald-200 to-emerald-100 text-white',
+        sky: 'bg-gradient-to-b from-sky-200 to-sky-100 text-white',
+        rose: 'bg-gradient-to-b from-rose-200 to-rose-100 text-white',
+        slate: 'bg-gradient-to-b from-slate-200 to-slate-100 text-white',
+        pink: 'bg-gradient-to-b from-pink-200 to-pink-100 text-white',
+        orange: 'bg-gradient-to-b from-orange-200 to-orange-100 text-white',
+        neutral: 'bg-gradient-to-b from-neutral-200 to-neutral-100 text-white',
+        stone: 'bg-gradient-to-b from-stone-200 to-stone-100 text-white',
+        amber: 'bg-gradient-to-b from-amber-200 to-amber-100 text-white',
+        lime: 'bg-gradient-to-b from-lime-200 to-lime-100 text-white',
+        teal: 'bg-gradient-to-b from-teal-200 to-teal-100 text-white',
+        cyan: 'bg-gradient-to-b from-cyan-200 to-cyan-100 text-white',
+        indigo: 'bg-gradient-to-b from-indigo-200 to-indigo-100 text-white',
+        violet: 'bg-gradient-to-b from-violet-200 to-violet-100 text-white',
+        purple: 'bg-gradient-to-b from-purple-200 to-purple-100 text-white',
+        fuchsia: 'bg-gradient-to-b from-fuchsia-200 to-fuchsia-100 text-white',
+        dark: 'bg-gray-900',
       };
       return colorClasses[this.color] || colorClasses['blue'];
     },

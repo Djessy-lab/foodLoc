@@ -41,7 +41,7 @@ export default {
         violet: 'bg-violet-500',
         purple: 'bg-purple-500',
         fuchsia: 'bg-fuchsia-500',
-        dark: 'bg-stone-900 text-white',
+        dark: 'bg-gray-900 text-white',
       };
       return colorClasses[this.color] || colorClasses['blue'];
     },

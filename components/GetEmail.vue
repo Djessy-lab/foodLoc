@@ -1,16 +1,16 @@
 <template>
-  <div :class="`h-[50vh] ${gradientClass} flex items-center justify-center`">
+  <div :class="[`h-[50vh] flex items-center justify-center`, colorMode.value === 'dark' ? 'bg-gray-900' : gradientClass]">
     <section id="get-email" class="flex flex-col items-center">
       <div class="text-center mb-10">
-        <h3 class="text-3xl">S'inscrire pour l'accès anticipé</h3>
-        <p class="mt-2">Inscrivez-vous aujourd'hui et bénéficiez de 40% de réduction</p>
+        <h3 class="text-3xl dark:text-white">S'inscrire pour l'accès anticipé</h3>
+        <p class="mt-2 dark:text-gray-300">Inscrivez-vous aujourd'hui et bénéficiez de 40% de réduction</p>
       </div>
       <div class="w-full flex justify-center">
         <input v-model="email" type="email" id="get-email" placeholder="votre.meilleur@email.com"
-          class="w-80 rounded-2xl p-1 text-center">
+          class="w-80 rounded-2xl p-1 text-center dark:bg-gray-700 dark:text-white">
       </div>
       <div class="w-full flex justify-center mt-4">
-        <button @click="subscribe" :class="`w-80 ${buttonClass} rounded-2xl p-1 text-white`">S'inscrire</button>
+        <button @click="subscribe" :class="[`w-80 rounded-2xl p-1 text-white`, colorMode.value === 'dark' ? 'bg-gray-600 hover:bg-gray-700' : buttonClass]">S'inscrire</button>
       </div>
     </section>
   </div>
@@ -19,6 +19,10 @@
 <script>
 export default {
   name: 'GetEmail',
+  setup() {
+    const colorMode = useColorMode()
+    return { colorMode }
+  },
   data() {
     return {
       email: '',
@@ -50,7 +54,7 @@ export default {
         violet: 'bg-gradient-to-b from-violet-100 to-violet-200',
         purple: 'bg-gradient-to-b from-purple-100 to-purple-200',
         fuchsia: 'bg-gradient-to-b from-fuchsia-100 to-fuchsia-200',
-        dark: 'bg-stone-900 text-white',
+        dark: 'bg-gray-900 text-white dark:bg-gray-800',
       };
       return colorClasses[this.color] || colorClasses['blue'];
     },
@@ -76,6 +80,7 @@ export default {
         violet: 'bg-violet-600 hover:bg-violet-700',
         purple: 'bg-purple-600 hover:bg-purple-700',
         fuchsia: 'bg-fuchsia-600 hover:bg-fuchsia-700',
+        dark: 'bg-gray-600 hover:bg-gray-700',
       };
       return colorClasses[this.color] || colorClasses['blue'];
     }
