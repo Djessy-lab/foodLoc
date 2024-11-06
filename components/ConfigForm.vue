@@ -1,7 +1,7 @@
 <template>
   <div class="py-8">
     <div class="ml-4">
-      <ThemeToggle />
+      <ThemeToggle size="sm" />
     </div>
     <h2 class="text-3xl font-amsterdam text-center py-4">Créer une nouvelle configuration</h2>
     <div class="rounded-lg shadow-xl w-[80%] mx-auto p-8 bg-gray-50">

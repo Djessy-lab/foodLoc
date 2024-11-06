@@ -1,35 +1,18 @@
 <template>
   <div>
-    <ConfigForm @configUpdated="updateConfig" />
+    <Saas v-if="currentConfig" v-bind="currentConfig" />
+    <div v-else>Chargement...</div>
   </div>
 </template>
 
 <script>
-import ConfigForm from '@/components/ConfigForm.vue';
-
+import config from '../data/config.js';
 export default {
   name: 'Home',
-  components: {
-    ConfigForm
-  },
   data() {
     return {
-      currentConfig: null
+      currentConfig: config.foodloc
     };
   },
-  methods: {
-    async updateConfig(configName) {
-      try {
-        const config = await $fetch(`/api/getConfig?configName=${configName}`);
-        if (!config.error) {
-          this.currentConfig = config;
-        } else {
-          console.error(config.error);
-        }
-      } catch (error) {
-        console.error('Erreur lors de la récupération de la configuration:', error);
-      }
-    }
-  }
 }
 </script>

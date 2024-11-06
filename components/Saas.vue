@@ -18,10 +18,9 @@
     <GetEmail :color="color" />
   </div>
   <div class="absolute top-2 right-44">
-    <ThemeToggle />
+    <ThemeToggle size="sm" />
   </div>
 </template>
-
 <script>
 
 export default {
